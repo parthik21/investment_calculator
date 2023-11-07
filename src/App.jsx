@@ -7,11 +7,13 @@ import Result from './components/Result.jsx';
 function App() {
 
   const [userInput, setUserInput] = useState({
-    initialInvestment: 10000,
+    initialInvestment: 15000,
     annualInvestment: 1200,
     expectedReturn: 6,
     duration: 10,
   });
+
+  const isValidInput = userInput.duration >= 1;
 
   function handleInputChange(inputIdentifier, newValue) {
     setUserInput((preInput) => {
@@ -26,7 +28,8 @@ function App() {
     <>
       <Header />
       <UserInput userInput={userInput} onChangeInput={handleInputChange} />
-      <Result input={userInput}/>
+      {!isValidInput && <p className="center">Please enter a duration greater than Zero.</p>}
+      {isValidInput && <Result input={userInput}/>}
     </>
   );
 }
